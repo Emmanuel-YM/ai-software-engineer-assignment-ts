@@ -58,6 +58,23 @@ Create `EXPLANATION.md` (max 250 words) containing:
 - **Why does your fix solve it?**
 - **One realistic case / edge case your tests still don’t cover**
 
+## How to Run Tests
+
+### Locally
+
+```bash
+npm install
+npm test
+```
+
+### With Docker
+
+```bash
+docker build -t ai-assignment-ts .
+docker run --rm ai-assignment-ts
+```
+
+
 ## Submission
 
 - Submit a public GitHub repository URL containing your solution to the Google form link provided.
