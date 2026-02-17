@@ -17,9 +17,8 @@ export class HttpClient {
     const headers = opts?.headers ?? {};
 
     if (api) {
-      // Refresh if token is missing, not a proper OAuth2Token instance, or expired.
+      // Refresh if token is not a valid OAuth2Token instance or has expired.
       if (
-        !this.oauth2Token ||
         !(this.oauth2Token instanceof OAuth2Token) ||
         this.oauth2Token.expired
       ) {

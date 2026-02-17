@@ -24,17 +24,16 @@ Both branches are `false`, so `refreshOAuth2()` is never called. The subsequent 
 
 ## Why does your fix solve it?
 
-The fix restructures the condition to three explicit checks:
+The fix restructures the condition to two clear checks:
 
 ```typescript
 if (
-  !this.oauth2Token ||
   !(this.oauth2Token instanceof OAuth2Token) ||
   this.oauth2Token.expired
 )
 ```
 
-This triggers a refresh when the token is: (a) missing/null, (b) not a valid `OAuth2Token` instance (covers plain objects), or (c) expired. Any non-`OAuth2Token` value is now replaced with a fresh token before the Authorization header is set.
+`instanceof` returns `false` for `null`, plain objects, and any non-`OAuth2Token` value, so the first check covers all invalid token states in one expression. The second check handles valid tokens that have expired. Together, a refresh is triggered for every case that needs one — without redundant checks.
 
 ## One realistic edge case the tests don't cover
 
